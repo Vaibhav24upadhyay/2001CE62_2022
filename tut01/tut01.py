@@ -118,6 +118,28 @@ idf.loc[0,"3"] = T_count_3
 idf.loc[0,"-3"] = T_count_min_3
 idf.loc[0,"4"] = T_count_4
 idf.loc[0,"-4"] = T_count_min_4
+temp_string = "Mod " + str(mod)
+
+
+idf.loc[1,"Octant ID"] = "" # Creating Octant ID colm
+start_int = 0000
+end_int = 5000
+for i in range(t+1):
+    temp_string = str(start_int)+ "-" + str(end_int) # string for 'Octant ID' colm
+    idf.loc[i+2,"Octant ID"] = temp_string
+    idf.loc[i+2,"1"] = count1[i]
+    idf.loc[i+2,"-1"] = count_minus_1[i]
+    idf.loc[i+2,"2"] = count2[i]
+    idf.loc[i+2,"-2"] = count_minus_2[i]
+    idf.loc[i+2,"3"] = count3[i]
+    idf.loc[i+2,"-3"] = count_minus_3[i]
+    idf.loc[i+2,"4"] = count4[i]
+    idf.loc[i+2,"-4"] = count_minus_4[i]
+    start_int+=mod
+    end_int=min(end_int+mod-1,idf['U'].size-1)
+print(idf)
+idf.to_csv('octant_output.csv')
+    
 
 
  
