@@ -96,3 +96,28 @@ for i in range(idf['U'].size):
         if w<0:
             idf['octant'][i]=-4
             count_minus_4[t]+=1
+
+for i in range(n):
+    T_count_1+=count1[i]
+    T_count_2+=count2[i]
+    T_count_3+=count3[i]
+    T_count_4+=count4[i]
+    T_count_min_1+=count_minus_1[i]
+    T_count_min_2+=count_minus_2[i]
+    T_count_min_3+=count_minus_3[i]
+    T_count_min_4+=count_minus_4[i]
+
+
+# inserting all calculated  values using idf
+idf.loc[0,"Octant ID"] = "Overall Count"
+idf.loc[0,"1"] = T_count_1
+idf.loc[0,"-1"] = T_count_min_1
+idf.loc[0,"2"] = T_count_2
+idf.loc[0,"-2"] = T_count_min_2
+idf.loc[0,"3"] = T_count_3
+idf.loc[0,"-3"] = T_count_min_3
+idf.loc[0,"4"] = T_count_4
+idf.loc[0,"-4"] = T_count_min_4
+
+
+ 
