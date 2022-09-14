@@ -31,3 +31,68 @@ idf["W'=W-W_avg"] = idf["W"]-W_Avg
 
 # finding total number of interval {0-5000 ,5001-10000 , -->> so on}
 n=int((idf['U'].size+mod)/mod)
+
+# initializing variables for counting required counts
+
+octant_colm = [] # for storing value of octant
+
+# count1[0] will count '1' comes in 0 to 5000 and count1[0] will count '1' in 5001 to 10000 and so on-->   
+count1=[0]*n     
+T_count_1=0
+count2=[0]*n
+T_count_2=0
+count3=[0]*n
+T_count_3=0
+count4=[0]*n
+T_count_4=0
+count_minus_1=[0]*n
+T_count_min_1=0
+count_minus_2=[0]*n
+T_count_min_2=0
+count_minus_3=[0]*n
+T_count_min_3=0
+count_minus_4=[0]*n
+T_count_min_4=0
+t=0
+temp_mod=mod # temp_mod will get updated when loop runs mod times  
+idf['octant']=0
+idf["User input"]=""
+for i in range(idf['U'].size):
+    u = idf.loc[i,"U'=U-U_avg"]
+    v = idf.loc[i,"V'=V-V_avg"]
+    w = idf.loc[i,"W'=W-W_avg"]
+    if i>temp_mod:
+        t=t+1
+        temp_mod=temp_mod+mod    # updating temp_mod  5000 to 10000 , 10000 to 15000 and so on
+    if u>0 and v>0:
+        if w>0:
+            idf['octant'][i]=1
+            count1[t]+=1
+    if u>0 and v>0:
+        if w<0:
+            idf['octant'][i]=-1
+            count_minus_1[t]+=1
+    if u<0 and v>0:
+        if w>0:
+            idf['octant'][i]=2
+            count2[t]+=1
+    if u<0 and v>0:
+        if w<0:
+            idf['octant'][i]=-2
+            count_minus_2[t]+=1
+    if u<0 and v<0:
+        if w>0:
+            idf['octant'][i]=3
+            count3[t]+=1
+    if u<0 and v<0:
+        if w<0:
+            idf['octant'][i]=-3
+            count_minus_3[t]+=1
+    if u>0 and v<0:
+        if w>0:
+            idf['octant'][i]=4
+            count4[t]+=1
+    if u>0 and v<0:
+        if w<0:
+            idf['octant'][i]=-4
+            count_minus_4[t]+=1
