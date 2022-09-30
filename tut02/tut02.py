@@ -97,3 +97,123 @@ for i in range(idf['U'].size):
         if w<0:
             idf['octant'][i]=-4
             count_minus_4[t]+=1
+
+# 
+for i in range(n):
+    T_count_1+=count1[i]
+    T_count_2+=count2[i]
+    T_count_3+=count3[i]
+    T_count_4+=count4[i]
+    T_count_min_1+=count_minus_1[i]
+    T_count_min_2+=count_minus_2[i]
+    T_count_min_3+=count_minus_3[i]
+    T_count_min_4+=count_minus_4[i]
+
+
+# inserting all calculated  values using idf
+idf.loc[0,"Octant ID"] = "Overall Count"
+strM = "Mod "
+idf.loc[1,"Octant ID"] = strM + str(mod)
+idf.loc[0,"1"] = T_count_1
+idf.loc[0,"-1"] = T_count_min_1
+idf.loc[0,"2"] = T_count_2
+idf.loc[0,"-2"] = T_count_min_2
+idf.loc[0,"3"] = T_count_3
+idf.loc[0,"-3"] = T_count_min_3
+idf.loc[0,"4"] = T_count_4
+idf.loc[0,"-4"] = T_count_min_4
+temp_string = "Mod " + str(mod)
+
+
+idf.loc[1,"Octant ID"] = "" # Creating Octant ID colm
+start_int = 0000
+end_int = 5000
+for i in range(t+1):
+    temp_string = str(start_int)+ "-" + str(end_int) # string for 'Octant ID' colm
+    idf.loc[i+2,"Octant ID"] = temp_string
+    idf.loc[i+2,"1"] = count1[i]
+    idf.loc[i+2,"-1"] = count_minus_1[i]
+    idf.loc[i+2,"2"] = count2[i]
+    idf.loc[i+2,"-2"] = count_minus_2[i]
+    idf.loc[i+2,"3"] = count3[i]
+    idf.loc[i+2,"-3"] = count_minus_3[i]
+    idf.loc[i+2,"4"] = count4[i]
+    idf.loc[i+2,"-4"] = count_minus_4[i]
+    start_int+=mod
+    end_int=min(end_int+mod-1,idf['U'].size-1)
+
+
+ 
+# Tutorial 2 main code
+
+# transition matrice list , initailising with zero
+tr_matrice={}
+for i in range(-4,5):
+    for j in range(-4,5):
+        temp_str = ""
+        temp_str = str(i)+str(j)
+        tr_matrice[temp_str]=0
+
+
+
+
+for i in range(idf['U'].size-1):
+      key =""
+      key = str(idf['octant'][i]) + str(idf['octant'][i+1])
+      tr_matrice[key]+=1
+    
+
+
+
+
+
+n=n+3
+idf.loc[n,"Octant ID"] = "Overall Transition Count"
+idf.loc[n+1,"1"] = "To"
+idf.loc[n+2,"Octant ID"]="Count"
+idf.loc[n+3,"Octant ID"]="+1"
+idf.loc[n+4,"Octant ID"]="-1"
+idf.loc[n+5,"Octant ID"]="+2"
+idf.loc[n+6,"Octant ID"]="-2"
+idf.loc[n+7,"Octant ID"]="+3"
+idf.loc[n+8,"Octant ID"]="-3"
+idf.loc[n+9,"Octant ID"]="+4"
+idf.loc[n+10,"Octant ID"]="-4"
+idf.loc[n+3,""] = "From"
+idf.loc[n+2,"1"] = "+1"
+idf.loc[n+2,"-1"] = "-1"
+idf.loc[n+2,"2"] = "+2"
+idf.loc[n+2,"-2"] = "-2"
+idf.loc[n+2,"3"] = "+3"
+idf.loc[n+2,"-3"] = "-3"
+idf.loc[n+2,"4"] = "+4"
+idf.loc[n+2,"-4"] = "-4"
+
+for i in range(-4,5):
+    temp_i=n+2
+    if(i==0):
+        continue
+    if(i==1):
+        temp_i +=1
+    if(i==-1):
+        temp_i +=2
+    if(i==2):
+        temp_i +=3
+    if(i==-2):
+        temp_i +=4
+    if(i==3):
+        temp_i +=5
+    if(i==-3):
+        temp_i +=6
+    if(i==4):
+        temp_i +=7
+    if(i==-4):
+        temp_i +=8
+    for j in range(-4,5):
+        temp_j=""
+        if(j==0):
+            continue
+        temp_j = temp_j + str(j)
+        key=""
+        key = str(i)+str(j)
+        idf.loc[temp_i,temp_j] = tr_matrice[key]
