@@ -75,6 +75,8 @@ for i in range(idf['U'].size):
         if w<0:
             idf['octant'][i]=-4
 
+
+
 # finding Maximum length of octant consecutive
 Total_count_max=[0]*9
 max_length=[0]*9 # max length of octant (list) 
@@ -98,7 +100,9 @@ for i in range(1,9):
             curr_len+=1
         if(curr_len>max_length[i]):
             max_length[i]=curr_len
-            
+
+
+
 # finding count  
 n1=idf['U'].size
 md1={-1:0,-2:0,-3:0,-4:0,1:0,2:0,3:0,4:0} 
@@ -123,3 +127,38 @@ for i in range(-4,5):
             if(count==md1[i]):
                 md2[i]+=1
             count=0
+
+
+
+
+# inserting data in file
+idf[""]=""
+idf["Count"] =""
+idf["Longest Subsquence Length"] =""
+idf["count"] =""
+n=0
+idf.loc[n,"Count"]="+1"
+idf.loc[n+1,"Count"]="-1"
+idf.loc[n+2,"Count"]="+2"
+idf.loc[n+3,"Count"]="-2"
+idf.loc[n+4,"Count"]="+3"
+idf.loc[n+5,"Count"]="-3"
+idf.loc[n+6,"Count"]="+4"
+idf.loc[n+7,"Count"]="-4"
+idf.loc[n,"Longest Subsquence Length"]=md1[1]
+idf.loc[n+1,"Longest Subsquence Length"]=md1[-1]
+idf.loc[n+2,"Longest Subsquence Length"]=md1[2]
+idf.loc[n+3,"Longest Subsquence Length"]=md1[-2]
+idf.loc[n+4,"Longest Subsquence Length"]=md1[3]
+idf.loc[n+5,"Longest Subsquence Length"]=md1[-3]
+idf.loc[n+6,"Longest Subsquence Length"]=md1[4]
+idf.loc[n+7,"Longest Subsquence Length"]=md1[-4]
+idf.loc[n,"count"]=md2[1]
+idf.loc[n+1,"count"]=md2[-1]
+idf.loc[n+2,"count"]=md2[2]
+idf.loc[n+3,"count"]=md2[-2]
+idf.loc[n+4,"count"]=md2[3]
+idf.loc[n+5,"count"]=md2[-3]
+idf.loc[n+6,"count"]=md2[4]
+idf.loc[n+7,"count"]=md2[-4]
+idf.to_excel('tut03\output_octant_longest_subsequence.xlsx')
