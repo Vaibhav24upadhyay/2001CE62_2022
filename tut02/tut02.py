@@ -217,3 +217,104 @@ for i in range(-4,5):
         key=""
         key = str(i)+str(j)
         idf.loc[temp_i,temp_j] = tr_matrice[key]
+
+# diffrent ranges {transition matrice}
+# creating data for diffrent ranges
+No_Of_Mod_tr = int((idf['U'].size+mod)/mod)
+new_temp_mod=0
+st=0
+for k in range(No_Of_Mod_tr):
+    last_tr=0
+    n+=14
+    st=new_temp_mod
+    if(new_temp_mod==0):
+        new_temp_mod=-1
+    new_temp_mod+=mod
+    mtr_matrice={}
+    for i in range(-4,5):
+        for j in range(-4,5):
+            mtemp_str = ""
+            mtemp_str = str(i)+str(j)
+            mtr_matrice[mtemp_str]=0 
+    for i in range(st,new_temp_mod):
+      if(i>(idf['U'].size-2)):
+        break
+      key =""
+      key = str(idf['octant'][i]) + str(idf['octant'][i+1])
+      mtr_matrice[key]+=1
+    idf.loc[n,"Octant ID"] = "Overall Transition Count"
+    range_str =""
+    if(new_temp_mod>idf['U'].size):
+        range_str= str(st+1)+"-"+str(idf['U'].size)
+    elif(st==0):
+        range_str= str(st)+"-"+str(new_temp_mod)
+    else:
+        range_str= str(st+1)+"-"+str(new_temp_mod)
+    idf.loc[n+1,"Octant ID"] = range_str
+    idf.loc[n+1,"1"] = "To"
+    idf.loc[n+2,"Octant ID"]="Count"
+    idf.loc[n+3,"Octant ID"]="+1"
+    idf.loc[n+4,"Octant ID"]="-1"
+    idf.loc[n+5,"Octant ID"]="+2"
+    idf.loc[n+6,"Octant ID"]="-2"
+    idf.loc[n+7,"Octant ID"]="+3"
+    idf.loc[n+8,"Octant ID"]="-3"
+    idf.loc[n+9,"Octant ID"]="+4"
+    idf.loc[n+10,"Octant ID"]="-4"
+    idf.loc[n+3,""] = "From"
+    idf.loc[n+2,"1"] = "+1"
+    idf.loc[n+2,"-1"] = "-1"
+    idf.loc[n+2,"2"] = "+2"
+    idf.loc[n+2,"-2"] = "-2"
+    idf.loc[n+2,"3"] = "+3"
+    idf.loc[n+2,"-3"] = "-3"
+    idf.loc[n+2,"4"] = "+4"
+    idf.loc[n+2,"-4"] = "-4"
+
+    for i in range(-4,5):
+        temp_i=n+2
+        if(i==0):
+            continue
+        if(i==1):
+            temp_i +=1
+        if(i==-1):
+            temp_i +=2
+        if(i==2):
+            temp_i +=3
+        if(i==-2):
+            temp_i +=4
+        if(i==3):
+            temp_i +=5
+        if(i==-3):
+            temp_i +=6
+        if(i==4):
+            temp_i +=7
+        if(i==-4):
+            temp_i +=8
+        for j in range(-4,5):
+            temp_j=""
+            if(j==0):
+                continue
+            temp_j = temp_j + str(j)
+            key=""
+            key = str(i)+str(j)
+            idf.loc[temp_i,temp_j] = mtr_matrice[key]
+
+# inserting all data in file
+idf.to_excel('output_octant_transition_identify.xlsx')
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
