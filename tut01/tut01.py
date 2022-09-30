@@ -7,7 +7,7 @@ from tkinter import W
 import pandas as pd
 import math
 pd.options.mode.chained_assignment = None  # default='warn'
-idf = pd.read_csv('octant_input.csv')
+idf = pd.read_csv(r'tut01\octant_input.csv')
 
 
 # Calculating mean of U , V , W
@@ -138,7 +138,7 @@ for i in range(t+1):
     start_int+=mod
     end_int=min(end_int+mod-1,idf['U'].size-1)
 print(idf)
-idf.to_csv('octant_output.csv')
+idf.to_csv('octant_input.csv')
     
 
 
