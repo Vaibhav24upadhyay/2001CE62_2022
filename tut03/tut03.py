@@ -75,5 +75,26 @@ for i in range(idf['U'].size):
         if w<0:
             idf['octant'][i]=-4
 
+# finding Maximum length of octant consecutive
+Total_count_max=[0]*9
+max_length=[0]*9 # max length of octant (list) 
 
-    
+for i in range(1,9):
+    int_temp=i
+    if(i==5):
+        int_temp=-1
+    if(i==6):
+        int_temp=-2
+    if(i==7):
+        int_temp=-3
+    if(i==8):
+        int_temp=-4
+    curr_len=1
+    for j in range(idf['U'].size-1):# 
+        if(idf.loc[j]['octant']!=int_temp):
+            curr_len=1
+            continue
+        if(idf.loc[j]['octant']==idf.loc[j+1]['octant']):
+            curr_len+=1
+        if(curr_len>max_length[i]):
+            max_length[i]=curr_len
