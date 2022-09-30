@@ -98,3 +98,28 @@ for i in range(1,9):
             curr_len+=1
         if(curr_len>max_length[i]):
             max_length[i]=curr_len
+            
+# finding count  
+n1=idf['U'].size
+md1={-1:0,-2:0,-3:0,-4:0,1:0,2:0,3:0,4:0} 
+md1[-1]=max_length[5]
+md1[-2]=max_length[6]
+md1[-3]=max_length[7]
+md1[-4]=max_length[8]
+md1[1]=max_length[1]
+md1[2]=max_length[2]
+md1[3]=max_length[3]
+md1[4]=max_length[4]
+
+md2={-1:0,-2:0,-3:0,-4:0,1:0,2:0,3:0,4:0}
+count=0
+for i in range(-4,5):
+    if i==0:
+        continue
+    for j in range(n1):
+        if(idf['octant'][j]==i):
+            count+=1
+        else:
+            if(count==md1[i]):
+                md2[i]+=1
+            count=0
