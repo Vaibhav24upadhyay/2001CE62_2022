@@ -7,7 +7,7 @@ from tkinter import W
 import pandas as pd
 import math
 pd.options.mode.chained_assignment = None  # default='warn'
-idf = pd.read_excel(r'C:\Users\Vaibh\OneDrive\Desktop\Py tut\tut02\input_octant_transition_identify.xlsx')
+idf = pd.read_excel(r'tut02\input_octant_transition_identify.xlsx')
 
 
 # Calculating mean of U , V , W
@@ -301,7 +301,7 @@ for k in range(No_Of_Mod_tr):
             idf.loc[temp_i,temp_j] = mtr_matrice[key]
 
 # inserting all data in file
-idf.to_excel('output_octant_transition_identify.xlsx')
+idf.to_excel('tut02\output_octant_transition_identify.xlsx')
     
     
     
