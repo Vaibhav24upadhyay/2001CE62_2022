@@ -115,5 +115,75 @@ md1[2]=max_length[2]
 md1[3]=max_length[3]
 md1[4]=max_length[4]
 
+# Main code for Tutorial 4  
 
+# making colms
+idf[""]=""
+idf["Count"] =""
+idf["Longest Subsquence Length"] =""
+idf["count"] =""
+idf["  "]=""
+idf["COUNT"]=""
+idf["LONGEST SUBSQUENCE LENGHTH"]=""
+idf["FREQUENCE"]=""
+
+md2={-1:0,-2:0,-3:0,-4:0,1:0,2:0,3:0,4:0}
+count=0
+n=0
+
+# calculating count/frequnce and insertingdata in file
+for i in range(-4,5):
+    if i==0:
+        continue
+    idf.loc[n,"COUNT"]=str(i)
+    idf.loc[n,"LONGEST SUBSQUENCE LENGHTH"]=md1[i]
+    n=n+1
+    idf.loc[n,"COUNT"]="Time"
+    idf.loc[n,"LONGEST SUBSQUENCE LENGHTH"]="From"
+    idf.loc[n,"FREQUENCE"]="To"
+    n=n+1
+    for j in range(n1):
+        if(idf['octant'][j]==i):
+            count+=1
+        else:
+            if(count==md1[i]):
+                idf.loc[n,"LONGEST SUBSQUENCE LENGHTH"]=(j-md1[i])/100
+                idf.loc[n,"FREQUENCE"]=(j-1)/100
+                md2[i]+=1
+                n=n+1
+            count=0
+q=0
+for i in range(-4,5):
+    if(i==0):
+        continue
+    idf.loc[q,"FREQUENCE"]=md2[i]
+    q=q+2
+    q=q+md2[i]
+# inserting data in file
+n=0
+idf.loc[n,"Count"]="+1"
+idf.loc[n+1,"Count"]="-1"
+idf.loc[n+2,"Count"]="+2"
+idf.loc[n+3,"Count"]="-2"
+idf.loc[n+4,"Count"]="+3"
+idf.loc[n+5,"Count"]="-3"
+idf.loc[n+6,"Count"]="+4"
+idf.loc[n+7,"Count"]="-4"
+idf.loc[n,"Longest Subsquence Length"]=md1[1]
+idf.loc[n+1,"Longest Subsquence Length"]=md1[-1]
+idf.loc[n+2,"Longest Subsquence Length"]=md1[2]
+idf.loc[n+3,"Longest Subsquence Length"]=md1[-2]
+idf.loc[n+4,"Longest Subsquence Length"]=md1[3]
+idf.loc[n+5,"Longest Subsquence Length"]=md1[-3]
+idf.loc[n+6,"Longest Subsquence Length"]=md1[4]
+idf.loc[n+7,"Longest Subsquence Length"]=md1[-4]
+idf.loc[n,"count"]=md2[1]
+idf.loc[n+1,"count"]=md2[-1]
+idf.loc[n+2,"count"]=md2[2]
+idf.loc[n+3,"count"]=md2[-2]
+idf.loc[n+4,"count"]=md2[3]
+idf.loc[n+5,"count"]=md2[-3]
+idf.loc[n+6,"count"]=md2[4]
+idf.loc[n+7,"count"]=md2[-4]
+idf.to_excel('tut04\output_octant_longest_subsequence_with_range.xlsx')
 
