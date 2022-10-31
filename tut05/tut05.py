@@ -7,9 +7,10 @@ from tkinter import W
 import pandas as pd
 import math
 pd.options.mode.chained_assignment = None  # default='warn'
-idf = pd.read_excel(r'tut05\octant_input.xlsx')
-
-
+try:
+    idf = pd.read_excel(r'tut05\octant_input.xlsx')
+except:
+    print ("File not found")
 # Calculating mean of U , V , W
 U_Avg = idf["U"].mean()
 V_Avg= idf["V"].mean()
@@ -186,26 +187,28 @@ for i in range(t+1):
 
 # shifting down in colm
 x = t+5
-
-idf.loc[x,"Rank of 1"] = "Octant ID"
-idf.loc[x+1,"Rank of 1"] = 1
-idf.loc[x+2,"Rank of 1"] = -1
-idf.loc[x+3,"Rank of 1"] = 2
-idf.loc[x+4,"Rank of 1"] = -2
-idf.loc[x+5,"Rank of 1"] = 3
-idf.loc[x+6,"Rank of 1"] = -3
-idf.loc[x+7,"Rank of 1"] = 4
-idf.loc[x+8,"Rank of 1"] = -4
-idf.loc[x,"Rank of 1"] = "Octant Name"
-idf.loc[x+1,"Rank of -1"] = "Internal outward interaction"
-idf.loc[x+2,"Rank of -1"] = "Exteranl outward interaction"
-idf.loc[x+3,"Rank of -1"] = "External Ejection"
-idf.loc[x+4,"Rank of -1"] = "Internal Ejection"
-idf.loc[x+5,"Rank of -1"] = "External inward interaction"
-idf.loc[x+6,"Rank of -1"] = "Internal inward interaction"
-idf.loc[x+7,"Rank of -1"] = "Internal sweep"
-idf.loc[x+8,"Rank of -1"] = "External sweep"
-idf.loc[x,"Rank of 2"] = "Count of Rank 1 Mod Values"
+try :
+    idf.loc[x,"Rank of 1"] = "Octant ID"
+    idf.loc[x+1,"Rank of 1"] = 1
+    idf.loc[x+2,"Rank of 1"] = -1
+    idf.loc[x+3,"Rank of 1"] = 2
+    idf.loc[x+4,"Rank of 1"] = -2
+    idf.loc[x+5,"Rank of 1"] = 3
+    idf.loc[x+6,"Rank of 1"] = -3
+    idf.loc[x+7,"Rank of 1"] = 4
+    idf.loc[x+8,"Rank of 1"] = -4
+    idf.loc[x,"Rank of 1"] = "Octant Name"
+    idf.loc[x+1,"Rank of -1"] = "Internal outward interaction"
+    idf.loc[x+2,"Rank of -1"] = "Exteranl outward interaction"
+    idf.loc[x+3,"Rank of -1"] = "External Ejection"
+    idf.loc[x+4,"Rank of -1"] = "Internal Ejection"
+    idf.loc[x+5,"Rank of -1"] = "External inward interaction"
+    idf.loc[x+6,"Rank of -1"] = "Internal inward interaction"
+    idf.loc[x+7,"Rank of -1"] = "Internal sweep"
+    idf.loc[x+8,"Rank of -1"] = "External sweep"
+    idf.loc[x,"Rank of 2"] = "Count of Rank 1 Mod Values"
+except:
+    print("Column not found")
 for i in count_rnk.keys():
     x=x+1
     idf.loc[x,"Rank of 2"] =count_rnk[i]
