@@ -1,16 +1,3 @@
-mod=5000
-from asyncio.windows_events import NULL
-from itertools import count
-from logging import NullHandler
-from queue import Empty
-from tkinter import W
-import pandas as pd
-import math
-pd.options.mode.chained_assignment = None  # default='warn'
-try:
-    idf = pd.read_csv(r'tut01\octant_input.csv')
-except:
-    print("Error reading, PLease write correct file address")
 
 # Calculating mean of U , V , W
 U_Avg = idf["U"].mean()
@@ -140,8 +127,3 @@ for i in range(t+1):
     start_int+=mod
     end_int=min(end_int+mod-1,idf['U'].size-1)
 print(idf)
-idf.to_csv('octant_input.csv')
-    
-
-
- 
