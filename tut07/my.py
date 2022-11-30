@@ -7,21 +7,9 @@ from openpyxl.styles.borders import Border, Side
 from datetime import datetime
 from openpyxl.utils import get_column_letter as gs
 import streamlit as st
-import pandas as pd
 start_time = datetime.now()
 
 # Help
-st.set_page_config(page_title="Project 2",page_icon=":tada:" ,layout="wide")
-st.title("Octant Batch Processing and Merging of Assignment")
-st.subheader("Please upload your file down below :point_down:")
-
-
-variable1 = st.file_uploader('INPUT FILE',type=['xlsx'])
-idf = pd.DataFrame()
-if variable1 is not None:
-    idf = pd.read_excel(variable1)
-    st.write("INPUT FILE Content :")
-    st.dataframe(idf)
 
 
 
@@ -138,9 +126,11 @@ def FunToSort(rowi, sheet, list1, octants, keynames, dict4first):
 
 def mainfun(file):
     # main function which will be executed for each of the file in input
+    # wb = load_workbook(f"{PathA}\input\{file}")
     wb = file
+    print(type(file))
     # print(f"{PathA}\input\{file}")
-    sheet = wb.active
+    sheet = wb
     sheet.insert_rows(1)
     sheet.cell(row=1, column=14).value = "Overall Octant Count"
     sheet.cell(row=1, column=35).value = "Overall Transition Count"
@@ -499,18 +489,19 @@ def mainfun(file):
     print(f"{opname}, file processed.")
     # print(f"{PathA}\output\{opname}")
     
-    
 
 
-octant_analysis(mod)
-dir_list = os.listdir(f"{PathA}\input")
-# print(dir_list)
+# octant_analysis(mod)
+# dir_list = os.listdir(f"{PathA}\input")
+# # print(dir_list)
 
 os.chdir(PathA)
 os.makedirs("output", exist_ok=True)
 
+dir_list = st.file_uploader("Choose a xlsx file",accept_multiple_files=True)
+
 for i in dir_list:
-    mainfun(idf)
+    mainfun(i)
 # This shall be the last lines of the code.
 end_time = datetime.now()
 print('Duration of Program Execution: {}'.format(end_time - start_time))
