@@ -45,7 +45,7 @@ st.subheader("""Filtering Method
 7. C & S & A
 8. All Combine""")
 
-variable6 = st.number_input("Filtering method")
+variable6 = st.number_input("Filtering method",step =1)
 
 if variable6 == 1:
     variable7 = st.number_input("Enter thresold value C:")
@@ -89,7 +89,7 @@ st.subheader("""Replacement method
 6. all seqential
 7. all parallel""")
 
-variable11 = st.number_input("Replacement method:")
+variable11 = st.number_input("Replacement method:",step=1)
 
 if st.button('Compute'):
     start_time = datetime.now() 
